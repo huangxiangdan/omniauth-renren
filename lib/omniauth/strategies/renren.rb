@@ -73,7 +73,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= MultiJson.decode(Net::HTTP.post_form(URI.parse('http://api.renren.com/restserver.do'), signed_params).body)[0]
+        @raw_info ||= MultiJson.decode(Net::HTTP.post_form(URI.parse('http://api.renren.com/restserver.do'), signed_params.merge({:fields => "uid,name,tinyurl,headhurl,zidou,star,sex"})).body)[0]
         @raw_info
       rescue ::Errno::ETIMEDOUT
         raise ::Timeout::Error
